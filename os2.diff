@@ -1,0 +1,243 @@
+diff -uNr  configure.ac.org configure.ac
+--- configure.ac.org	2011-08-08 02:48:02.000000000 +0900
++++ configure.ac	2013-04-29 18:28:46.000000000 +0900
+@@ -20,6 +20,7 @@
+ AC_INIT
+ AC_CONFIG_SRCDIR([lib/iconv.c])
+ AC_CONFIG_AUX_DIR([build-aux])
++AC_CONFIG_MACRO_DIR([m4])
+ AM_INIT_AUTOMAKE([libiconv], [1.14])
+ AC_CONFIG_HEADERS([config.h lib/config.h])
+ AC_PROG_MAKE_SET
+diff -uNr  Makefile.devel.org Makefile.devel
+--- Makefile.devel.org	2011-07-03 23:05:10.000000000 +0900
++++ Makefile.devel	2013-04-29 18:27:06.000000000 +0900
+@@ -4,10 +4,10 @@
+ 
+ SHELL = /bin/sh
+ MAKE = make
+-AUTOCONF = autoconf-2.68
+-AUTOHEADER = autoheader-2.68
+-AUTOMAKE = automake-1.11
+-ACLOCAL = aclocal-1.11
++AUTOCONF = autoconf
++AUTOHEADER = autoheader
++AUTOMAKE = automake
++ACLOCAL = aclocal
+ GPERF = gperf
+ CC = gcc
+ CFLAGS = -O
+diff -uNr  lib/Makefile.in.org lib/Makefile.in
+--- lib/Makefile.in.org	2011-08-08 02:48:02.000000000 +0900
++++ lib/Makefile.in	2013-04-29 18:27:06.000000000 +0900
+@@ -68,7 +68,7 @@
+ all : libiconv.la
+ 
+ libiconv.la : $(OBJECTS)
+-	$(LIBTOOL_LINK) $(CC) $(LDFLAGS) $(CFLAGS) -o libiconv.la -rpath $(libdir) -version-info $(LIBICONV_VERSION_INFO) -no-undefined $(OBJECTS)
++	$(LIBTOOL_LINK) $(CC) $(LDFLAGS) $(CFLAGS) -o libiconv.la -os2dllname kiconv -rpath $(libdir) -version-info $(LIBICONV_VERSION_INFO) -no-undefined $(OBJECTS)
+ 
+ iconv.lo : $(srcdir)/iconv.c $(srcdir)/converters.h \
+            $(srcdir)/encodings.def $(srcdir)/encodings_aix.def $(srcdir)/encodings_osf1.def $(srcdir)/encodings_dos.def $(srcdir)/encodings_local.def \
+diff -uNr  libcharset/configure.ac.org libcharset/configure.ac
+--- libcharset/configure.ac.org	2009-10-19 00:26:58.000000000 +0900
++++ libcharset/configure.ac	2013-04-29 18:28:46.000000000 +0900
+@@ -24,6 +24,7 @@
+ AC_INIT([lib/localcharset.c])
+ AC_CONFIG_AUX_DIR([build-aux])
+ AC_CONFIG_HEADER([config.h])
++AC_CONFIG_MACRO_DIR([m4])
+ AC_PROG_MAKE_SET
+ AC_SUBST([PACKAGE])
+ AC_SUBST([VERSION])
+diff -uNr  libcharset/Makefile.devel.org libcharset/Makefile.devel
+--- libcharset/Makefile.devel.org	2010-09-24 08:28:14.000000000 +0900
++++ libcharset/Makefile.devel	2013-04-29 18:27:06.000000000 +0900
+@@ -3,9 +3,9 @@
+ 
+ SHELL = /bin/sh
+ MAKE = make
+-AUTOCONF = autoconf-2.68
+-AUTOHEADER = autoheader-2.68
+-ACLOCAL = aclocal-1.11
++AUTOCONF = autoconf
++AUTOHEADER = autoheader
++ACLOCAL = aclocal
+ CP = cp
+ RM = rm -f
+ 
+diff -uNr  libcharset/lib/config.charset.org libcharset/lib/config.charset
+--- libcharset/lib/config.charset.org	2010-04-05 09:25:38.000000000 +0900
++++ libcharset/lib/config.charset	2013-04-29 18:34:20.000000000 +0900
+@@ -348,12 +348,10 @@
+     #echo "sun_eu_greek ?" # what is this?
+     echo "UTF-8 UTF-8"
+     ;;
+-  freebsd* | os2*)
++  freebsd*)
+     # FreeBSD 4.2 doesn't have nl_langinfo(CODESET); therefore
+     # localcharset.c falls back to using the full locale name
+     # from the environment variables.
+-    # Likewise for OS/2. OS/2 has XFree86 just like FreeBSD. Just
+-    # reuse FreeBSD's locale data for OS/2.
+     echo "C ASCII"
+     echo "US-ASCII ASCII"
+     for l in la_LN lt_LN; do
+diff -uNr  libcharset/lib/localcharset.c.org libcharset/lib/localcharset.c
+--- libcharset/lib/localcharset.c.org	2011-03-01 07:43:34.000000000 +0900
++++ libcharset/lib/localcharset.c	2013-04-29 18:34:20.000000000 +0900
+@@ -124,7 +124,7 @@
+   cp = charset_aliases;
+   if (cp == NULL)
+     {
+-#if !(defined DARWIN7 || defined VMS || defined WIN32_NATIVE || defined __CYGWIN__)
++#if !(defined DARWIN7 || defined VMS || defined WIN32_NATIVE || defined __CYGWIN__ || defined OS2)
+       const char *dir;
+       const char *base = "charset.alias";
+       char *file_name;
+@@ -338,6 +338,64 @@
+            "CP54936" "\0" "GB18030" "\0"
+            "CP65001" "\0" "UTF-8" "\0";
+ # endif
++# if defined OS2
++      /* To avoid the troubles of installing a separate file in the same
++         directory as the DLL and of retrieving the DLL's directory at
++         runtime, simply inline the aliases here.  */
++
++      cp = "bg_BG" "\0" "CP1251" "\0"
++           "ca_ES" "\0" "CP850" "\0"
++           "cs_SZ" "\0" "CP852" "\0"
++           "da_DK" "\0" "CP850" "\0"
++           "de_AT" "\0" "CP850" "\0"
++           "de_CH" "\0" "CP850" "\0"
++           "de_DE" "\0" "CP850" "\0"
++           "el_GR" "\0" "CP869" "\0"
++           "en_AU" "\0" "CP850" "\0"
++           "en_CA" "\0" "CP850" "\0"
++           "en_GB" "\0" "CP850" "\0"
++           "en_IE" "\0" "CP850" "\0"
++           "en_NZ" "\0" "CP850" "\0"
++           "en_US" "\0" "CP850" "\0"
++           "en_ZA" "\0" "CP850" "\0"
++           "es_ES" "\0" "CP850" "\0"
++           "es_LA" "\0" "CP850" "\0"
++           "et_EE" "\0" "CP922" "\0"
++           "fi_FI" "\0" "CP850" "\0"
++           "fr_BE" "\0" "CP850" "\0"
++           "fr_CA" "\0" "CP850" "\0"
++           "fr_CH" "\0" "CP850" "\0"
++           "fr_FR" "\0" "CP850" "\0"
++           "hr_HR" "\0" "CP852" "\0"
++           "hu_HU" "\0" "CP852" "\0"
++           "is_IS" "\0" "CP850" "\0"
++           "it_CH" "\0" "CP850" "\0"
++           "it_IT" "\0" "CP850" "\0"
++           "iw_IL" "\0" "CP862" "\0"
++           "ja_JP" "\0" "CP943" "\0"
++           "ko_KR" "\0" "CP949" "\0"
++           "lt_LT" "\0" "ISO-8859-13" "\0"
++           "lv_LV" "\0" "ISO-8859-13" "\0"
++           "mk_MK" "\0" "CP855" "\0"
++           "nl_BE" "\0" "CP850" "\0"
++           "nl_NL" "\0" "CP850" "\0"
++           "no_NO" "\0" "CP850" "\0"
++           "pl_PL" "\0" "CP852" "\0"
++           "pt_BR" "\0" "CP850" "\0"
++           "pt_PT" "\0" "CP850" "\0"
++           "ro_RO" "\0" "CP852" "\0"
++           "ru_RU" "\0" "CP866" "\0"
++           "sh_BA" "\0" "CP852" "\0"
++           "sk_SK" "\0" "CP852" "\0"
++           "sl_SI" "\0" "CP852" "\0"
++           "sq_AL" "\0" "CP850" "\0"
++           "sr_SP" "\0" "CP855" "\0"
++           "sv_SE" "\0" "CP850" "\0"
++           "th_TH" "\0" "CP874" "\0"
++           "tr_TR" "\0" "CP857" "\0"
++           "zh_CN" "\0" "GB2312" "\0"
++           "zh_TW" "\0" "CP950" "\0";
++# endif
+ #endif
+ 
+       charset_aliases = cp;
+@@ -474,6 +532,8 @@
+   static char buf[2 + 10 + 1];
+   ULONG cp[3];
+   ULONG cplen;
++  int use_cp = 0;
++  int from_lang = 0;
+ 
+   /* Allow user to override the codeset, as set in the operating system,
+      with standard language environment variables.  */
+@@ -482,7 +542,10 @@
+     {
+       locale = getenv ("LC_CTYPE");
+       if (locale == NULL || locale[0] == '\0')
++      {
+         locale = getenv ("LANG");
++        from_lang = 1;
++      }
+     }
+   if (locale != NULL && locale[0] != '\0')
+     {
+@@ -505,11 +568,16 @@
+               return buf;
+             }
+         }
++      else
++        use_cp = from_lang;
+ 
+       /* Resolve through the charset.alias file.  */
+       codeset = locale;
+     }
+   else
++    use_cp = 1;
++
++  if (use_cp)
+     {
+       /* OS/2 has a function returning the locale's codepage as a number.  */
+       if (DosQueryCp (sizeof (cp), cp, &cplen))
+diff -uNr  preload/configure.ac.org preload/configure.ac
+--- preload/configure.ac.org	2009-06-21 20:17:32.000000000 +0900
++++ preload/configure.ac	2013-04-29 18:28:46.000000000 +0900
+@@ -23,6 +23,7 @@
+ 
+ AC_INIT([configure.ac])
+ AC_CONFIG_AUX_DIR([../build-aux])
++AC_CONFIG_MACRO_DIR([m4])
+ AC_PROG_MAKE_SET
+ AC_SUBST([PACKAGE])
+ AC_SUBST([VERSION])
+diff -uNr  preload/Makefile.devel.org preload/Makefile.devel
+--- preload/Makefile.devel.org	2010-09-24 08:29:30.000000000 +0900
++++ preload/Makefile.devel	2013-04-29 18:27:06.000000000 +0900
+@@ -3,8 +3,8 @@
+ 
+ SHELL = /bin/sh
+ MAKE = make
+-AUTOCONF = autoconf-2.68
+-ACLOCAL = aclocal-1.11
++AUTOCONF = autoconf
++ACLOCAL = aclocal
+ CP = cp
+ RM = rm -f
+ 
+diff -uNr  srclib/stdint.in.h.org srclib/stdint.in.h
+--- srclib/stdint.in.h.org	2011-08-07 22:42:06.000000000 +0900
++++ srclib/stdint.in.h	2013-04-29 18:27:06.000000000 +0900
+@@ -260,8 +260,15 @@
+ 
+ #undef intptr_t
+ #undef uintptr_t
++#ifndef __KLIBC__
+ typedef long int gl_intptr_t;
+ typedef unsigned long int gl_uintptr_t;
++#else
++/* intptr_t and uintptr_t are defined as int and unsigned int on OS/2 kLIBC,
++   respectively */
++typedef int gl_intptr_t;
++typedef unsigned int gl_uintptr_t;
++#endif
+ #define intptr_t gl_intptr_t
+ #define uintptr_t gl_uintptr_t
+ 

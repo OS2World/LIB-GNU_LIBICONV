@@ -1,0 +1,70 @@
+cd libcharset && if test -f Makefile; then F:/usr/bin/make.exe distclean; fi
+make.exe[1]: Entering directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/libcharset'
+cd lib && if test -f Makefile; then F:/usr/bin/make.exe distclean; fi
+make.exe[2]: Entering directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/libcharset/lib'
+rm -f *.o *.lo *.a *.la *.o.lock core *.stackdump charset.alias ref-add.sed ref-del.sed
+rm -f -r .libs _libs
+rm -f config.status config.log config.cache Makefile libtool
+make.exe[2]: Leaving directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/libcharset/lib'
+rm -f include/libcharset.h include/localcharset.h include/localcharset.h.inst
+rm -f config.status config.log config.cache Makefile config.h libtool
+make.exe[1]: Leaving directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/libcharset'
+rm -f lib/charset.alias lib/libcharset.* lib/localcharset.h
+cd lib && if test -f Makefile; then F:/usr/bin/make.exe distclean; fi
+make.exe[1]: Entering directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/lib'
+rm -f *.o *.lo *.a *.la core *.stackdump so_locations
+rm -f -r .libs _libs
+rm -f Makefile config.h libtool
+make.exe[1]: Leaving directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/lib'
+cd preload && if test -f Makefile; then F:/usr/bin/make.exe distclean; fi
+make.exe[1]: Entering directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/preload'
+rm -f *.o *.lo *.a *.la preloadable_libiconv* core *.stackdump so_locations
+rm -f -r .libs _libs objects
+rm -f config.status config.log config.cache Makefile libtool
+make.exe[1]: Leaving directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/preload'
+cd srclib && if test -f Makefile; then F:/usr/bin/make.exe distclean; fi
+make.exe[1]: Entering directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/srclib'
+make.exe[2]: Entering directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14'
+make.exe[2]: Nothing to be done for `am--refresh'.
+make.exe[2]: Leaving directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14'
+rm -rf .libs _libs
+test -z "libicrt.a" || rm -f libicrt.a
+rm -f *.o
+test -z "core *.stackdump core *.stackdump alloca.h alloca.h-t errno.h errno.h-t fcntl.h fcntl.h-t signal.h signal.h-t arg-nonnull.h arg-nonnull.h-t c++defs.h c++defs.h-t warn-on-use.h warn-on-use.h-t stdbool.h stdbool.h-t stddef.h stddef.h-t stdint.h stdint.h-t stdio.h stdio.h-t stdlib.h stdlib.h-t string.h string.h-t sys/stat.h sys/stat.h-t time.h time.h-t unistd.h unistd.h-t unitypes.h unitypes.h-t uniwidth.h uniwidth.h-t" || rm -f core *.stackdump core *.stackdump alloca.h alloca.h-t errno.h errno.h-t fcntl.h fcntl.h-t signal.h signal.h-t arg-nonnull.h arg-nonnull.h-t c++defs.h c++defs.h-t warn-on-use.h warn-on-use.h-t stdbool.h stdbool.h-t stddef.h stddef.h-t stdint.h stdint.h-t stdio.h stdio.h-t stdlib.h stdlib.h-t string.h string.h-t sys/stat.h sys/stat.h-t time.h time.h-t unistd.h unistd.h-t unitypes.h unitypes.h-t uniwidth.h uniwidth.h-t
+rm -f *.lo
+rmdir sys
+rm -f *.tab.c
+test -z "" || rm -f 
+test . = "." || test -z "" || rm -f 
+rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
+rm -f Makefile
+make.exe[1]: Leaving directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/srclib'
+cd src && if test -f Makefile; then F:/usr/bin/make.exe distclean; fi
+make.exe[1]: Entering directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/src'
+rm -f *.o *.lo iconv.res iconv_no_i18n iconv_no_i18n.exe iconv.exe core *.stackdump
+rm -f -r .libs _libs
+rm -f Makefile
+make.exe[1]: Leaving directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/src'
+cd po && if test -f Makefile; then F:/usr/bin/make.exe distclean; fi
+make.exe[1]: Entering directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/po'
+rm -f *.insert-header
+rm -f remove-potcdate.sed
+rm -f stamp-poT
+rm -f core core.* libiconv.po libiconv.1po libiconv.2po *.new.po
+rm -fr *.o
+rm -f Makefile Makefile.in POTFILES *.mo
+make.exe[1]: Leaving directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/po'
+cd man && if test -f Makefile; then F:/usr/bin/make.exe distclean; fi
+make.exe[1]: Entering directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/man'
+rm -f Makefile
+make.exe[1]: Leaving directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/man'
+if test -d tests; then cd tests && if test -f Makefile; then F:/usr/bin/make.exe distclean; fi; fi
+make.exe[1]: Entering directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/tests'
+rm -f *.o *.lo table-from table-from.exe table-to table-to.exe test-shiftseq test-shiftseq.exe test-to-wchar test-to-wchar.exe tmp-* genutf8 genutf8.exe UTF-8.TXT gengb18030z gengb18030z.exe GB18030.TXT core *.stackdump
+rm -f -r .libs _libs
+rm -f Makefile
+make.exe[1]: Leaving directory `F:/lang/work/libiconv/libiconv-1.14.pack/libiconv-1.14/tests'
+rm -f config.status config.log config.cache Makefile libtool
+rm -f config.h stamp-h1 lib/stamp-h2
+rm -f include/iconv.h include/iconv.h.inst
+rm -rf bin

@@ -1,0 +1,29 @@
+                          Upload Information Template for Hobbes.nmsu.edu
+                          ===============================================
+
+        Archive Filename: libiconv-1.14.zip
+       Short Description: libiconv v1.14 for OS/2
+        Long Description: libiconv v1.14 for OS/2.
+This library provides an iconv() implementation, for use on systems which
+don't have one, or whose implementation cannot convert from/to Unicode.
+
+      Proposed directory
+           for placement: /pub/os2/dev/misc
+
+               Your name: KO Myung-Hun
+           Email address: komh@chollian.net
+    Program contact name: (same)
+   Program contact email: (same)
+             Program URL: http://www.gnu.org/software/libiconv/
+
+      Would you like the
+   contact email address
+    included in listings? yes
+
+Operating System/Version: 
+ Additional requirements: kLIBC065
+
+                Replaces: (none)
+
+
+
